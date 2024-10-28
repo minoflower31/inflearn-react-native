@@ -1,6 +1,9 @@
 import {Text, TouchableOpacity, View} from "react-native";
+import PropTypes from "prop-types";
 
-const MyButton = ({title, onPress = () => {}, children}) => {
+const MyButton = ({title, onPress, children, title2}) => {
+
+
   return (
       <TouchableOpacity onPress={onPress}
                         pressRetentionOffset={{
@@ -21,6 +24,13 @@ const MyButton = ({title, onPress = () => {}, children}) => {
 MyButton.defaultProps = {
   title: "no text",
   onPress: () => alert("default"),
+}
+
+MyButton.propTypes = {
+  title: PropTypes.string,
+  onPress: PropTypes.func,
+  title2: PropTypes.string
+  // title2: PropTypes.string.isRequired
 }
 
 export default MyButton;
