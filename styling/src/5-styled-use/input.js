@@ -7,7 +7,7 @@ const StyledInput = styled.TextInput.attrs(({placeholder, theme}) => ({
 }))`
   padding: 20px;
   font-size: 20px;
-  //border: 1px solid ${({text}) => (text ? "#00f" : "#111")};
+  //border: 1px solid ${({text}) => text ? "#00f" : "#111"};
   border: 1px solid ${({theme}) => theme.inputBorder};
 `;
 
