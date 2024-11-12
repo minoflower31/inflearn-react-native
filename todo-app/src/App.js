@@ -82,7 +82,7 @@ export default function App() {
           <List width={width}>
             {Object.values(tasks)
             .reverse()
-            .map((task) => <Task key={task.id} task={task} onDeleteTask={deleteTask} />)}
+            .map((task) => <Task key={task.id} task={task} onDeleteTask={deleteTask} onToggleTask={toggleTask} />)}
           </List>
         </Container>
       </ThemeProvider>
