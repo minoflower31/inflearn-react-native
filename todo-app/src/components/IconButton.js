@@ -10,7 +10,7 @@ const Icon = styled.Image`
   color: ${({theme,completed}) => completed ? theme.done : theme.text};
 `;
 
-const IconButton = ({icon, onPress, task}) => {
+const IconButton = ({icon, onPress, task= {completed: false}}) => {
   const _onPress = () => { // id를 인수로 전달할 수 없기 때문에 가공함
     onPress(task.id);
   }
@@ -19,10 +19,6 @@ const IconButton = ({icon, onPress, task}) => {
       <Icon source={icon} completed={task.completed}></Icon>
     </View>
   </TouchableOpacity>
-}
-
-IconButton.defaultProps = {
-  task: {completed: false}
 }
 
 IconButton.propTypes = {

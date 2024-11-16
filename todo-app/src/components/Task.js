@@ -20,24 +20,43 @@ const Contents = styled.Text`
   text-decoration-line: ${({completed}) => completed ? "line-through" : "none"};
 `;
 
-const Task = ({task, onDeleteTask, onToggleTask}) => {
+const Task = ({task, onDeleteTask, onToggleTask, onUpdateTask}) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [text, setText] = useState(task.text);
+
+  const _onSubmitEditing = () => {
+    setIsEditing(false);
+
+    if(isEditing) {
+      const updatedTask = Object.assign({}, task);
+      updatedTask.text = text;
+      setIsEditing(false);
+      onUpdateTask(updatedTask);
+    }
+  }
 
   return isEditing
-      ? <Input value={} onChangeText={} onSubmitEditing={}/>
+      ? <Input value={text} onChangeText={(text) => setText(text)}
+               onSubmitEditing={_onSubmitEditing}
+               onBlur={() => {
+                 setText(task.text);
+                 setIsEditing(false);
+               }}
+      />
       : <Container>
         <IconButton icon={task.completed ? icons.check : icons.uncheck}
                     task={task} onPress={onToggleTask}/>
         <Contents completed={task.completed}>{task.text}</Contents>
-        {task.completed || <IconButton icon={icons.edit}/>}
-        <IconButton icon={icons.delete} id={task.id} onPress={onDeleteTask}/>
+        {task.completed || <IconButton icon={icons.edit} onPress={() => setIsEditing(true)}/>}
+        <IconButton icon={icons.delete} task={task} onPress={onDeleteTask}/>
       </Container>
 }
 
 Task.propTypes = {
   task: PropTypes.object.isRequired,
   onDeleteTask: PropTypes.func.isRequired,
-  onToggleTask: PropTypes.func.isRequired
+  onToggleTask: PropTypes.func.isRequired,
+  onUpdateTask: PropTypes.func.isRequired,
 }
 
 export default Task;

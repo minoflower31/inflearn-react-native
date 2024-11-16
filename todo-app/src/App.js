@@ -69,6 +69,12 @@ export default function App() {
     setTasks(currentTasks);
   }
 
+  const updateTask = item => {
+    const currentTasks = Object.assign({}, tasks);
+    currentTasks[item.id] = item;
+    setTasks(currentTasks);
+  }
+
   return (
       <ThemeProvider theme={theme}>
         <Container>
@@ -78,11 +84,15 @@ export default function App() {
           <Input placeholder="Add a task" value={newTask}
                  onChangeText={text => setNewTask(text)}
                  onSubmitEditing={addTask}
+                 onBlur={() => setNewTask("")}
           />
           <List width={width}>
             {Object.values(tasks)
             .reverse()
-            .map((task) => <Task key={task.id} task={task} onDeleteTask={deleteTask} onToggleTask={toggleTask} />)}
+            .map((task) => <Task key={task.id} task={task}
+                                 onDeleteTask={deleteTask}
+                                 onToggleTask={toggleTask}
+                                 onUpdateTask={updateTask}/>)}
           </List>
         </Container>
       </ThemeProvider>
